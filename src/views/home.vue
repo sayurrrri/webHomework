@@ -2,6 +2,8 @@
     <div class="bg">
         <div class="home card">
             <div class="title">
+                <!-- <el-avatar :size="100" src="../assets/avt.jpg" /> -->
+                 <img src="../assets/avt.jpg" alt="不抽香烟" style="height: 100px; width: 100px; border-radius: 50px;"></img>
                 <h1 style="font-family:'Times New Roman', Times, serif;">23软件工程一班web小组作业</h1>
             </div>
             <div class="content">
