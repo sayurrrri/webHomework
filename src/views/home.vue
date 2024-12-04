@@ -1,9 +1,8 @@
 <template>
-    <div class="bg">
+    <div class="bg" @mousemove="handleMouseMove">
         <div class="home card">
             <div class="title">
-                <!-- <el-avatar :size="100" src="../assets/avt.jpg" /> -->
-                 <img src="../assets/avt.jpg" alt="不抽香烟" style="height: 100px; width: 100px; border-radius: 50px;"></img>
+                 <img class="image-hover" src="../assets/avt.jpg" alt="不抽香烟" style="height: 100px; width: 100px; border-radius: 50px;" />
                 <h1 style="font-family:'Times New Roman', Times, serif;">23软件工程一班web小组作业</h1>
             </div>
             <div class="content">
@@ -30,6 +29,23 @@ const handleClick = (id: string) => {
     router.push(`/page${id}`)
 }
 
+const handleMouseMove = (event: MouseEvent) => {
+    const bgElement = document.querySelector('.bg') as HTMLElement;
+    if (!bgElement) return;
+
+    const rect = bgElement.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const offsetX = ((x - centerX) / centerX) * 10; // 调整10以改变移动速度
+    const offsetY = ((y - centerY) / centerY) * 10; // 调整10以改变移动速度
+
+    bgElement.style.setProperty('--bg-offset-x', `${offsetX}px`);
+    bgElement.style.setProperty('--bg-offset-y', `${offsetY}px`);
+}
 </script>
 
 <style scoped>
@@ -39,9 +55,12 @@ const handleClick = (id: string) => {
 }
 
 .bg {
+    --bg-offset-x: 0px;
+    --bg-offset-y: 0px;
     height: 100vh;
-    background: url('../assets/bg.jpg') no-repeat center center fixed;
+    background: url('../assets/bg2.jpg') no-repeat center center fixed;
     background-size: cover;
+    background-position: calc(50% + var(--bg-offset-x)) calc(50% + var(--bg-offset-y));
 }
 
 .home {
@@ -103,5 +122,15 @@ const handleClick = (id: string) => {
 .card-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 定义初始样式 */
+.image-hover {
+  transition: transform 0.5s ease;
+}
+
+/* 定义hover时的样式 */
+.image-hover:hover {
+  transform: rotate(360deg) scale(2);
 }
 </style>
